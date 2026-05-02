@@ -1,11 +1,11 @@
 """Quickstart example: load a policy, evaluate transactions, see results.
 
 Run with:
-    pip install agentspend
+    pip install agentguard
     python examples/quickstart.py
 """
 
-from agentspend import (
+from agentguard import (
     Decision,
     PerTransactionLimit,
     PolicyEngine,

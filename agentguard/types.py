@@ -1,4 +1,4 @@
-"""Core types for agentspend.
+"""Core types for agentguard.
 
 Keep this module dependency-free so it can be imported anywhere.
 """
@@ -63,7 +63,7 @@ class PolicyResult:
 
 
 class PolicyError(Exception):
-    """Base exception for all agentspend policy errors."""
+    """Base exception for all agentguard policy errors."""
 
 
 class PolicyDenied(PolicyError):

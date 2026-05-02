@@ -1,10 +1,10 @@
-# agentspend
+# agentguard
 
-**Policy engine for autonomous AI agent spending.** Stripe gave AI agents the ability to spend money. `agentspend` decides whether they should.
+**Policy engine for autonomous AI agent spending.** Stripe gave AI agents the ability to spend money. `agentguard` decides whether they should.
 
 ```python
-from agentspend import PolicyEngine, Transaction
-from agentspend.rules import PerTransactionLimit, VendorAllowlist
+from agentguard import PolicyEngine, Transaction
+from agentguard.rules import PerTransactionLimit, VendorAllowlist
 
 engine = PolicyEngine(rules=[
     PerTransactionLimit(agent_id=None, hard_max_cents=10_000,
@@ -33,20 +33,20 @@ Stripe's [Agentic Commerce Suite](https://stripe.com/blog/agentic-commerce-suite
 - What's the audit trail when finance asks where $40k went last quarter?
 - How do I kill all agent spending in 5 seconds when something looks wrong?
 
-If you're running 10+ agents that touch money, you need an answer. `agentspend` is that answer.
+If you're running 10+ agents that touch money, you need an answer. `agentguard` is that answer.
 
 ---
 
 ## Use cases
 
-These are the scenarios `agentspend` was built for. Each shows a runnable pattern and what it actually prevents.
+These are the scenarios `agentguard` was built for. Each shows a runnable pattern and what it actually prevents.
 
 ### 1. CI agent buying compute on demand
 
 Your CI agent spins up GPU instances when build queues back up. You want it autonomous up to a point, but not unbounded — a runaway loop or a misconfigured workflow shouldn't be able to drain your AWS account overnight.
 
 ```python
-from agentspend import (
+from agentguard import (
     PolicyEngine, Transaction, Decision,
     PerTransactionLimit, WindowedSpendLimit, VendorAllowlist,
     JSONLFileSink,
@@ -89,7 +89,7 @@ with engine.guard(txn):
 Your support agent enriches tickets with Clearbit/Hunter lookups. Each call is cheap, but at scale it adds up — and a prompt-injected ticket could try to drain it.
 
 ```python
-from agentspend import (
+from agentguard import (
     PolicyEngine, Decision,
     PerTransactionLimit, WindowedSpendLimit, VendorAllowlist,
 )
@@ -116,7 +116,7 @@ engine = PolicyEngine(
 You have several agents owned by different teams, each with its own monthly budget. You don't want platform-wide rules — you want per-agent rules that compose sensibly into team-level accountability.
 
 ```python
-from agentspend import (
+from agentguard import (
     PolicyEngine, PerTransactionLimit, WindowedSpendLimit,
 )
 from datetime import timedelta
@@ -162,8 +162,8 @@ result = engines["marketing-agent"].authorize(txn)
 ## Install
 
 ```bash
-pip install agentspend            # core, zero deps
-pip install agentspend[yaml]      # adds YAML policy loading
+pip install agentguard            # core, zero deps
+pip install agentguard[yaml]      # adds YAML policy loading
 ```
 
 Python 3.10+. No required runtime dependencies.
@@ -246,7 +246,7 @@ rules:
 ```
 
 ```python
-from agentspend import load_engine_from_yaml
+from agentguard import load_engine_from_yaml
 
 engine = load_engine_from_yaml("policy.yaml")
 ```
@@ -259,8 +259,8 @@ A hook is a callable `(txn, tracker) -> RuleVerdict | None`.
 
 ```python
 from datetime import timezone
-from agentspend import Decision
-from agentspend.rules import RuleVerdict
+from agentguard import Decision
+from agentguard.rules import RuleVerdict
 
 def business_hours_only(txn, tracker):
     hour = txn.timestamp.astimezone(timezone.utc).hour
@@ -280,7 +280,7 @@ Hooks run alongside rules and follow the same precedence. If a hook raises, the 
 When a rule returns `REQUIRE_APPROVAL`, the engine creates an approval request via the configured `ApprovalSink`. The default in-memory sink is for tests; in production you'd implement one that posts to Slack/Teams/email.
 
 ```python
-from agentspend import ApprovalSink
+from agentguard import ApprovalSink
 
 class SlackApprovalSink:
     def request(self, txn, reason) -> str:
@@ -298,7 +298,7 @@ class SlackApprovalSink:
 Every decision (allow, deny, require approval) is logged. The default in-memory sink is for tests; for real use, write to a file or your log system:
 
 ```python
-from agentspend import JSONLFileSink
+from agentguard import JSONLFileSink
 
 engine = PolicyEngine(audit=JSONLFileSink("./agent-spend.jsonl"))
 ```

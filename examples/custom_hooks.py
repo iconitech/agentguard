@@ -8,13 +8,13 @@ and returns a RuleVerdict or None.
 
 from datetime import datetime, timedelta, timezone
 
-from agentspend import (
+from agentguard import (
     Decision,
     PolicyEngine,
     Transaction,
     VendorAllowlist,
 )
-from agentspend.rules import RuleVerdict
+from agentguard.rules import RuleVerdict
 
 
 def business_hours_only(txn: Transaction, tracker) -> RuleVerdict | None:

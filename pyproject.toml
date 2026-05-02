@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "agentspend"
+name = "agentguard"
 version = "0.1.0"
 description = "Policy engine for autonomous AI agent spending"
 readme = "README.md"
@@ -32,12 +32,12 @@ yaml = ["pyyaml>=6.0"]
 dev = ["pytest>=8.0", "pyyaml>=6.0"]
 
 [project.urls]
-Homepage = "https://github.com/iconitech/agentspend"
-Repository = "https://github.com/iconitech/agentspend"
-Issues = "https://github.com/iconitech/agentspend/issues"
+Homepage = "https://github.com/iconitech/agentguard"
+Repository = "https://github.com/iconitech/agentguard"
+Issues = "https://github.com/iconitech/agentguard/issues"
 
 [tool.setuptools.packages.find]
-include = ["agentspend*"]
+include = ["agentguard*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,4 +1,4 @@
-# Example agentspend policy file.
+# Example agentguard policy file.
 #
 # This shows every rule type currently supported. In real use, you'd
 # probably split per-agent policies into separate files and compose them.

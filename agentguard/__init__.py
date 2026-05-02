@@ -1,9 +1,9 @@
-"""agentspend — policy engine for autonomous AI agent spending.
+"""agentguard — policy engine for autonomous AI agent spending.
 
 Quickstart:
 
-    from agentspend import PolicyEngine, Transaction
-    from agentspend.rules import PerTransactionLimit, VendorAllowlist
+    from agentguard import PolicyEngine, Transaction
+    from agentguard.rules import PerTransactionLimit, VendorAllowlist
 
     engine = PolicyEngine(rules=[
         PerTransactionLimit(agent_id=None, hard_max_cents=10_000,
@@ -24,7 +24,7 @@ Quickstart:
 
 Or load from YAML:
 
-    from agentspend import load_engine_from_yaml
+    from agentguard import load_engine_from_yaml
     engine = load_engine_from_yaml("policy.yaml")
 """
 

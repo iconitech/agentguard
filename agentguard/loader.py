@@ -27,7 +27,7 @@ def load_engine_from_yaml(
     except ImportError as e:
         raise ImportError(
             "PyYAML is required to load policies from YAML. "
-            "Install with: pip install agentspend[yaml]"
+            "Install with: pip install agentguard[yaml]"
         ) from e
 
     text = Path(path).read_text(encoding="utf-8")

@@ -5,7 +5,7 @@ Stripe payment call. This is the integration pattern users should
 copy-paste.
 
 Note: this example uses Stripe in test mode and assumes you have
-STRIPE_API_KEY set. The agentspend library does NOT depend on the
+STRIPE_API_KEY set. The agentguard library does NOT depend on the
 stripe package — it's purely a policy engine. You bring your own
 Stripe (or your own anything).
 """
@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import os
 
-from agentspend import (
+from agentguard import (
     ApprovalRequired,
     JSONLFileSink,
     PerTransactionLimit,

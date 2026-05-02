@@ -32,7 +32,7 @@ from .types import (
     Transaction,
 )
 
-logger = logging.getLogger("agentspend")
+logger = logging.getLogger("agentguard")
 
 
 # Hooks let users add arbitrary Python logic that the YAML rules can't

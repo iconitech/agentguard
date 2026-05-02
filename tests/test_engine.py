@@ -1,4 +1,4 @@
-"""Tests for the agentspend policy engine.
+"""Tests for the agentguard policy engine.
 
 These cover the critical paths and the gnarly edge cases (decision
 precedence, hooks failing closed, spend not being recorded if the
@@ -11,7 +11,7 @@ from datetime import timedelta
 
 import pytest
 
-from agentspend import (
+from agentguard import (
     ApprovalRequired,
     Decision,
     InMemoryApprovalSink,
@@ -25,7 +25,7 @@ from agentspend import (
     VendorBlocklist,
     WindowedSpendLimit,
 )
-from agentspend.rules import (
+from agentguard.rules import (
     RuleVerdict,
     load_rules_from_dict,
     parse_amount_cents,
