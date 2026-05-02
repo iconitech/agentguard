@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentspend"
+version = "0.1.0"
+description = "Policy engine for autonomous AI agent spending"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Max Luckan" }]
+keywords = [
+    "ai", "agents", "stripe", "agentic-commerce", "policy", "governance",
+    "spend-management", "fintech",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = []  # zero runtime deps for the core
+
+[project.optional-dependencies]
+yaml = ["pyyaml>=6.0"]
+dev = ["pytest>=8.0", "pyyaml>=6.0"]
+
+[project.urls]
+Homepage = "https://github.com/iconitech/agentspend"
+Repository = "https://github.com/iconitech/agentspend"
+Issues = "https://github.com/iconitech/agentspend/issues"
+
+[tool.setuptools.packages.find]
+include = ["agentspend*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

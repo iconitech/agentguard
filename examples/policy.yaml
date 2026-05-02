@@ -1,0 +1,56 @@
+# Example agentspend policy file.
+#
+# This shows every rule type currently supported. In real use, you'd
+# probably split per-agent policies into separate files and compose them.
+
+rules:
+  # ---- Universal guardrails (apply to ALL agents) ----
+
+  # No agent can ever spend more than $500 on a single transaction.
+  # Anything over $50 in a single charge needs a human.
+  - type: per_transaction_limit
+    hard_max: $500
+    approval_threshold: $50
+
+  # Block obviously sketchy vendors regardless of which agent is asking.
+  - type: vendor_blocklist
+    vendors:
+      - sketchy-bitcoin-mixer
+      - definitely-not-malware
+
+  # ---- Per-agent budgets ----
+
+  # The CI agent gets $200/day for compute. Hard stop above that.
+  - type: windowed_limit
+    agent_id: ci-agent
+    window: 1d
+    limit: $200
+    currency: USD
+
+  # CI agent can only spend with these vendors.
+  - type: vendor_allowlist
+    agent_id: ci-agent
+    vendors:
+      - anthropic
+      - openai
+      - aws
+      - sendgrid
+
+  # The monitoring agent has a higher budget but more frequent ceiling.
+  - type: windowed_limit
+    agent_id: monitoring-agent
+    window: 1h
+    limit: $100
+    currency: USD
+
+  # The customer-support agent can only buy from approved data providers,
+  # and any single charge over $5 pings a human.
+  - type: per_transaction_limit
+    agent_id: support-agent
+    hard_max: $25
+    approval_threshold: $5
+  - type: vendor_allowlist
+    agent_id: support-agent
+    vendors:
+      - clearbit
+      - hunter-io
